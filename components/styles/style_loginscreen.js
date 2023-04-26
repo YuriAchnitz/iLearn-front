@@ -16,7 +16,7 @@ export default StyleSheet.create(
             width: '100%',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: 10,
+            gap: 15,
         },
 
         logo: {

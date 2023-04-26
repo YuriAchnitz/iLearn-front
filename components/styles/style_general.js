@@ -7,6 +7,10 @@ export default StyleSheet.create(
             padding: 20,
         },
 
+        text_small: {
+            fontSize: 16,
+        },
+
         text_normal: {
             fontSize: 20,
         },
@@ -15,8 +19,8 @@ export default StyleSheet.create(
             fontSize: 24,
         },
 
-        text_small: {
-            fontSize: 16,
+        text_bigger: {
+            fontSize: 40,
         },
 
         text_bold: {
@@ -33,6 +37,10 @@ export default StyleSheet.create(
 
         text_color_link: {
             color: colors.blue_link,
+        },
+
+        text_color_purple: {
+            color: colors.purple_main,
         },
 
         input_text_line: {
