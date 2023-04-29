@@ -7,6 +7,36 @@ export default StyleSheet.create(
             padding: 20,
         },
 
+        container_modal: {
+            height: 'auto',
+            width: 'auto',
+            //flex: 1,
+            flexDirection: 'column',
+            gap: 10,
+            alignContent: 'center',
+            padding: 20,
+            backgroundColor: colors.white_simple,
+            borderRadius: 15,
+            margin: 'auto',
+            textAlign: 'center',
+        },
+
+        container_fill: {
+            flex: 1,
+            backgroundColor: colors.black_transparent,
+            padding: 30,
+        },
+
+        modal_button: {
+            padding: 10,
+            paddingHorizontal: 20,
+            borderRadius: 15,
+            width: 'auto',
+            marginHorizontal: 'auto',
+            alignContent: 'center',
+            alignItems: 'center',
+        },
+
         text_small: {
             fontSize: 16,
         },
@@ -41,6 +71,10 @@ export default StyleSheet.create(
 
         text_color_purple: {
             color: colors.purple_main,
+        },
+
+        text_color_gray: {
+            color: colors.gray_placeholder
         },
 
         input_text_line: {

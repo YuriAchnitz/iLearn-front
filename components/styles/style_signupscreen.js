@@ -7,7 +7,7 @@ export default StyleSheet.create(
             flex: 1,
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '5%',
+            gap: 15,
             padding: 20,
         },
 
@@ -23,6 +23,7 @@ export default StyleSheet.create(
             flexDirection: 'column',
             alignItems: 'center',
             gap: 15,
+            paddingVertical: 15,
         },
 
         container_input_group: {
@@ -37,6 +38,14 @@ export default StyleSheet.create(
             paddingHorizontal: 10,
             borderRadius: 15,
             backgroundColor: colors.purple_accent,
+        },
+
+        input_text_wrong: {
+            width: '100%',
+            padding: 7,
+            paddingHorizontal: 10,
+            borderRadius: 15,
+            backgroundColor: colors.red_wrong,
         },
 
         arrow: {
