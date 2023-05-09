@@ -94,7 +94,11 @@ export default function SignUpScreen({ navigation }) {
   }
 
   const validateConfirmPassword = () => {
-    return (password === passwordConfirm);
+
+    if (validateInput(password, passwordPattern, 8))
+      return (password === passwordConfirm);
+    else
+      return false;
   }
 
   const validateInput = (input, regexp, minLenght) => {
@@ -108,7 +112,7 @@ export default function SignUpScreen({ navigation }) {
   }
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView style={{ flex: 1 }}>
       <View style={style_signupscreen.container_screen}>
         <Modal
           animationType="fade"

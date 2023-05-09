@@ -13,9 +13,14 @@ export default function LoginScreen({ navigation }) {
     navigation.push('Sign Up');
   }
 
+  const pushContentScreen = () => {
+     navigation.push('Content');
+  }
+
   const submit = () => {
     console.log('email: ' + email);
     console.log('password: ' + password);
+    pushContentScreen();
   }
 
   return (
