@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from './colors';
 
 export default StyleSheet.create(
     {
@@ -25,9 +26,25 @@ export default StyleSheet.create(
             aspectRatio: 956 / 251,
         },
 
-        text_title:{
+        text_title: {
             fontSize: 30,
             textAlign: 'center',
+        },
+
+        input_text_line: {
+            width: '75%',
+            padding: 7,
+            paddingHorizontal: 10,
+            borderRadius: 15,
+            backgroundColor: colors.purple_accent,
+        },
+
+        input_text_wrong: {
+            width: '75%',
+            padding: 7,
+            paddingHorizontal: 10,
+            borderRadius: 15,
+            backgroundColor: colors.red_wrong,
         },
     }
 );

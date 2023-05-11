@@ -7,20 +7,68 @@ import { colors } from '../styles/colors';
 
 export default function LoginScreen({ navigation }) {
   const [email, onChangeEmail] = useState("");
+  const [emailValid, setEmailValid] = useState(style_loginscreen.input_text_line);
+
   const [password, onChangePassword] = useState("");
+  const [passwordValid, setPasswordValid] = useState(style_loginscreen.input_text_line);
 
   const pushSignUp = () => {
     navigation.push('Sign Up');
   }
 
   const pushContentScreen = () => {
-     navigation.push('Content');
+    navigation.push('Content');
+  }
+
+  const emailPattern = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+
+  const validateInput = (input, regexp, minLenght) => {
+    if (input.length < minLenght)
+      return false;
+
+    if (!regexp.test(input))
+      return false;
+
+    return true;
+  }
+
+  const validatePassowrd = () => {
+    if (password.length <= 0)
+      return false;
+    else
+      return true;
+  }
+
+  const validateAllInputs = () => {
+    if (!validateInput(email, emailPattern, 5))
+      return false;
+    if (!validatePassowrd())
+      return false;
+
+    return true;
   }
 
   const submit = () => {
     console.log('email: ' + email);
     console.log('password: ' + password);
-    pushContentScreen();
+    if (!validateInput(email, emailPattern, 5)) {
+      setEmailValid(style_loginscreen.input_text_wrong)
+    } else {
+      setEmailValid(style_loginscreen.input_text_line)
+    }
+
+    if (!validatePassowrd()) {
+      setPasswordValid(style_loginscreen.input_text_wrong);
+    } else {
+      setPasswordValid(style_loginscreen.input_text_line);
+    }
+
+    if (validateAllInputs() && email == "admin@admin.com") {
+      //if (confirmAllInputs()) {
+      pushContentScreen();
+      onChangeEmail("");
+      onChangePassword("");
+    }
   }
 
   return (
@@ -36,7 +84,7 @@ export default function LoginScreen({ navigation }) {
         <Text style={style_general.text_normal}>Entre com sua conta</Text>
 
         <TextInput
-          style={[style_general.input_text_line, style_general.text_normal]}
+          style={[emailValid, style_general.text_normal]}
           placeholder='email'
           placeholderTextColor={colors.gray_placeholder}
           value={email}
@@ -44,7 +92,7 @@ export default function LoginScreen({ navigation }) {
         />
 
         <TextInput
-          style={[style_general.input_text_line, style_general.text_normal]}
+          style={[passwordValid, style_general.text_normal]}
           placeholder='senha'
           placeholderTextColor={colors.gray_placeholder}
           value={password}

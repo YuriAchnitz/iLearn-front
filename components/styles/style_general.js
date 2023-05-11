@@ -77,14 +77,6 @@ export default StyleSheet.create(
             color: colors.gray_placeholder
         },
 
-        input_text_line: {
-            width: '75%',
-            padding: 7,
-            paddingHorizontal: 10,
-            borderRadius: 15,
-            backgroundColor: colors.purple_accent,
-        },
-
         button_confirm: {
             width: 'auto',
             padding: 10,
