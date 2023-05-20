@@ -1,11 +1,21 @@
-import { Text, View, Image, TextInput } from 'react-native';
+import { Text, View, Image, TextInput, Modal } from 'react-native';
 import { useEffect, useState } from "react";
 import style_general from "../styles/style_general";
 import style_loginscreen from '../styles/style_loginscreen';
-import ButtonConfirm from '../buttons/ButtonConfirm';
+import ButtonConfirm from '../general/ButtonConfirm';
+import ModalView from '../general/ModalView';
 import { colors } from '../styles/colors';
+import { patterns } from '../general/regex_patterns';
+import { APICalls } from '../general/APICalls';
 
 export default function LoginScreen({ navigation }) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
+  const modal_message_noemail = "Este email ainda não está cadastrado. Você pode se cadastrar imediatamente."
+  const modal_message_wrongpass = "Senha incorreta, por favor tente novamente."
+  const modal_message_other = "Por favor, tente novamente mais tarde."
+
   const [email, onChangeEmail] = useState("");
   const [emailValid, setEmailValid] = useState(style_loginscreen.input_text_line);
 
@@ -16,11 +26,11 @@ export default function LoginScreen({ navigation }) {
     navigation.push('Sign Up');
   }
 
-  const pushContentScreen = () => {
-    navigation.push('Content');
+  const pushContentScreen = (token) => {
+    navigation.push('Content', {accessToken: token});
   }
 
-  const emailPattern = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+  const emailPattern = patterns.email_pattern;
 
   const validateInput = (input, regexp, minLenght) => {
     if (input.length < minLenght)
@@ -63,16 +73,36 @@ export default function LoginScreen({ navigation }) {
       setPasswordValid(style_loginscreen.input_text_line);
     }
 
-    if (validateAllInputs() && email == "admin@admin.com") {
-      //if (confirmAllInputs()) {
-      pushContentScreen();
-      onChangeEmail("");
-      onChangePassword("");
+    if (validateAllInputs()) {
+
+      APICalls.Login(email, password).then((accessToken) => {
+        pushContentScreen(accessToken);
+        console.log(accessToken);
+        onChangeEmail("");
+        onChangePassword("");
+      }).catch((error) => {
+        setModalMessage(modal_message_other);
+        setModalVisible(true);
+        console.log(error);
+      })
+
     }
   }
 
   return (
     <View style={style_loginscreen.container_screen}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}>
+        <ModalView
+          title="Algo deu errado"
+          message={modalMessage}
+          btn_message="Ok"
+          btn_color={colors.red_deny}
+          onpress={() => { setModalVisible(false) }} />
+      </Modal>
+
       <Image
         style={style_loginscreen.logo}
         source={require('../../assets/ilearn-logo.png')}

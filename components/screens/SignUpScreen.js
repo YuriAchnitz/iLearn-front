@@ -2,13 +2,21 @@ import { Text, View, Image, TextInput, Pressable, Modal, ScrollView } from 'reac
 import { useEffect, useState } from "react";
 import style_general from "../styles/style_general";
 import style_signupscreen from '../styles/style_signupscreen';
-import ButtonConfirm from '../buttons/ButtonConfirm';
-import ModalView from '../misc/ModalView';
+import ButtonConfirm from '../general/ButtonConfirm';
+import ModalView from '../general/ModalView';
 import { colors } from '../styles/colors';
+import { patterns } from '../general/regex_patterns';
+import { APICalls } from '../general/APICalls';
 
 export default function SignUpScreen({ navigation }) {
   const [modalError, setModalError] = useState(false);
   const [modalSuccess, setModalSuccess] = useState(false);
+
+  const [modalErrorMessage, setModalErrorMessage] = useState("");
+
+  const modal_message_doubleemail = "Este email já está cadastrado, por favor utilize outro.";
+  const modal_message_other = "Por favor, tente novamente mais tarde.";
+
 
   const [name, onChangeName] = useState("");
   const [nameValid, setNameValid] = useState(style_signupscreen.input_text_line);
@@ -40,17 +48,21 @@ export default function SignUpScreen({ navigation }) {
     console.log('phone validation: ' + validateInput(phone, phonePattern, 11))
 
     if (validateAllInputs()) {
-      if (name == 'admin')
+      APICalls.RegisterUser(name, phone, email, password).then(() => {
         setModalSuccess(true);
-      else
+      }).catch((error) => {
+        setModalErrorMessage(modal_message_other);
         setModalError(true);
+        console.log(error);
+      })
     }
   }
 
-  const emailPattern = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
-  const namePattern = new RegExp("");
-  const passwordPattern = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
-  const phonePattern = new RegExp("^(\()?[1-9]{2}(\))? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$");
+
+  const emailPattern = patterns.email_pattern;
+  const namePattern = patterns.name_pattern;
+  const passwordPattern = patterns.password_pattern;
+  const phonePattern = patterns.phone_pattern;
 
   const validateAllInputs = () => {
     let valid = true;
@@ -121,7 +133,7 @@ export default function SignUpScreen({ navigation }) {
         >
           <ModalView
             title="Algo deu errado"
-            message="Por favor, tente novamente mais tarde"
+            message={modalErrorMessage}
             btn_message="Ok"
             btn_color={colors.red_deny}
             onpress={() => { setModalError(false) }} />
