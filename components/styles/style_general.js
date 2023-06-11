@@ -85,6 +85,14 @@ export default StyleSheet.create(
             backgroundColor: colors.green_confirm,
         },
 
+        button_confirm_disabled: {
+            width: 'auto',
+            padding: 10,
+            paddingHorizontal: 15,
+            borderRadius: 15,
+            backgroundColor: colors.green_disabled,
+        },
+
         image: {
             height: 'auto',
             width: 'auto',

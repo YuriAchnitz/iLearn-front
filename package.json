@@ -1,6 +1,6 @@
 {
-  "name": "ilearn-front",
-  "version": "1.0.0",
+  "name": "ilearn",
+  "version": "0.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -12,7 +12,7 @@
     "@expo/webpack-config": "^18.0.1",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
-    "axios": "^1.4.0",
+    "axios": "^0.27.2",
     "expo": "~48.0.11",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",

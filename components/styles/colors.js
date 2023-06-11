@@ -3,6 +3,7 @@ export const colors = {
   purple_main: '#986AA8',
   gray_placeholder: '#6D6D6D',
   green_confirm: '#22FF45',
+  green_disabled: '#4fff6f',
   red_deny: "#F42E2E",
   red_wrong: "#DD7B7B",
   white_simple: '#FFF',

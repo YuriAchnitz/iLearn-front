@@ -5,7 +5,6 @@ import LoginScreen from './components/screens/LoginScreen'
 import SignUpScreen from './components/screens/SignUpScreen';
 import ContentScreen from './components/screens/logged/ContentScreen';
 
-
 const Stack = createNativeStackNavigator()
 
 export default function App() {

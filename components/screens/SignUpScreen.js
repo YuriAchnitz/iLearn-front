@@ -33,6 +33,8 @@ export default function SignUpScreen({ navigation }) {
   const [passwordConfirm, onChangePasswordConfirm] = useState("");
   const [passwordConfirmValid, setPasswordConfirmValid] = useState(style_signupscreen.input_text_line);
 
+  const [disableButton, setDisableButton] = useState(false)
+
   const submit = () => {
     console.log('name: ' + name);
     console.log('phone: ' + phone);
@@ -48,11 +50,14 @@ export default function SignUpScreen({ navigation }) {
     console.log('phone validation: ' + validateInput(phone, phonePattern, 11))
 
     if (validateAllInputs()) {
+      setDisableButton(true);
       APICalls.RegisterUser(name, phone, email, password).then(() => {
         setModalSuccess(true);
+        setDisableButton(false);
       }).catch((error) => {
         setModalErrorMessage(modal_message_other);
         setModalError(true);
+        setDisableButton(false);
         console.log(error);
       })
     }
@@ -244,7 +249,7 @@ export default function SignUpScreen({ navigation }) {
 
         </View>
 
-        <ButtonConfirm text='Cadastrar' onpress={submit} />
+        <ButtonConfirm text='Cadastrar' disable={disableButton} onpress={submit} />
       </View>
     </ScrollView>
   );

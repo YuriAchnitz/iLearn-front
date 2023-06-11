@@ -26,8 +26,8 @@ export default function LoginScreen({ navigation }) {
     navigation.push('Sign Up');
   }
 
-  const pushContentScreen = (token) => {
-    navigation.push('Content', {accessToken: token});
+  const pushContentScreen = (token, id) => {
+    navigation.push('Content', { accessToken: token, studentId: id });
   }
 
   const emailPattern = patterns.email_pattern;
@@ -75,9 +75,9 @@ export default function LoginScreen({ navigation }) {
 
     if (validateAllInputs()) {
 
-      APICalls.Login(email, password).then((accessToken) => {
-        pushContentScreen(accessToken);
-        console.log(accessToken);
+      APICalls.Login(email, password).then((data) => {
+        pushContentScreen(data.accessToken, data.studentId);
+        console.log(data.accessToken, data. studentId);
         onChangeEmail("");
         onChangePassword("");
       }).catch((error) => {
